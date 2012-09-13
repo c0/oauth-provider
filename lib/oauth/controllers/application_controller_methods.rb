@@ -75,12 +75,12 @@ module OAuth
           oauth20_token || oauth10_access_token || nil
         end
 
-        def client_application
-          env["oauth.version"]==1 && env["oauth.client_application"] || oauth20_token.try(:client_application)
+        def app
+          env["oauth.version"]==1 && env["oauth.app"] || oauth20_token.try(:app)
         end
 
         def two_legged
-           env["oauth.version"]==1 && client_application
+           env["oauth.version"]==1 && app
         end
 
         def interactive
@@ -103,8 +103,8 @@ module OAuth
         request.env["oauth.token"]
       end
 
-      def current_client_application
-        request.env["oauth.version"]==1 && request.env["oauth.client_application"] || current_token.try(:client_application)
+      def current_app
+        request.env["oauth.version"]==1 && request.env["oauth.app"] || current_token.try(:app)
       end
 
       def oauth?
