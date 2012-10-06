@@ -59,6 +59,7 @@ module OAuth
         else
           if request.post?
             @authorizer = OAuth::Provider::Authorizer.new current_user, user_authorizes_token?, params
+            Rails.logger.info "redirect: #{@authorizer.redirect_uri}"
             redirect_to @authorizer.redirect_uri
           else
             @app = App.find_by_key! params[:client_id]
